@@ -1961,7 +1961,9 @@ CompilerInvocation::getSemanticsCtx(
       .set_maxErrors(getMaxErrors())
       .set_warningsAreErrors(getWarnAsErr())
       .set_moduleFileSuffix(getModuleFileSuffix())
-      .set_underscoring(getCodeGenOpts().Underscoring);
+      .set_underscoring(getCodeGenOpts().Underscoring)
+      .set_targetTriple(targetMachine.getTargetTriple().str())
+      .set_targetFeatures(targetMachine.getTargetFeatureString().str());
 
   std::string compilerVersion = Fortran::common::getFlangFullVersion();
   Fortran::tools::setUpTargetCharacteristics(
