@@ -2201,7 +2201,7 @@ DeclResult Sema::CheckClassTemplate(
                         ? diag::err_friend_decl_does_not_match
                         : diag::err_member_decl_does_not_match)
           << Name << SemanticContext << /*IsDefinition*/ true << SS.getRange();
-      Invalid = true;
+      return true;
     }
   }
 
@@ -2246,7 +2246,7 @@ DeclResult Sema::CheckClassTemplate(
   if (ModulePrivateLoc.isValid())
     NewTemplate->setModulePrivate();
 
-  if (!Invalid && IsMemberSpecialization) {
+  if (IsMemberSpecialization) {
     assert(PrevClassTemplate &&
            "Member specialization without a primary template?");
     NewTemplate->setMemberSpecialization();
