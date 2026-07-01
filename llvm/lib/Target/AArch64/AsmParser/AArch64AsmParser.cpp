@@ -8730,7 +8730,7 @@ AArch64AsmParser::tryParseConsecutiveGPRSeqPair(OperandVector &Operands) {
 
   MCRegister Pair;
   if (IsXZRPair) {
-    Pair = AArch64::XZR_XZR;
+    Pair = AArch64::XZR;
   } else if (IsXReg) {
     Pair = RI->getMatchingSuperReg(
         FirstReg, AArch64::sube64,
