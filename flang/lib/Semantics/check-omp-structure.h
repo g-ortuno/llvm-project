@@ -145,6 +145,9 @@ public:
   void Enter(const parser::OmpMetadirectiveDirective &);
   void Leave(const parser::OmpMetadirectiveDirective &);
 
+  void Enter(const parser::ExecutionPartConstruct &);
+  void Leave(const parser::OmpClause::When &);
+
   void Enter(const parser::OmpContextSelector &);
   void Leave(const parser::OmpContextSelector &);
 
@@ -420,6 +423,14 @@ private:
     ExecutionPart,
   };
   std::vector<PartKind> partStack_;
+
+  struct MetadirectiveLoopVariant {
+    const parser::traits::OmpContextSelectorSpecification *selector;
+    const parser::OmpDirectiveSpecification *spec;
+  };
+  std::vector<MetadirectiveLoopVariant> metadirectiveLoopVariants_;
+  const parser::traits::OmpContextSelectorSpecification *currentWhenSelector_{
+      nullptr};
 
   std::multimap<const parser::Label,
       std::pair<parser::CharBlock, const parser::OpenMPConstruct *>>
